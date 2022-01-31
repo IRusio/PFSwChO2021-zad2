@@ -11,6 +11,17 @@ jobs:
 
     steps:
 
+     - name: Set up QEMU
+        uses: docker/setup-qemu-action@master
+        with:
+          platforms: all
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
+      
+
+      
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -31,6 +42,7 @@ jobs:
         with:
           context: ./
           file: ./dockerfile.v1
+          platforms: linux/amd64, linux/arm64, linux/ppc641e
           push: true
           tags: |
             irusio/zad2:ghfront1
