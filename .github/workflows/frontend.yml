@@ -1,8 +1,10 @@
-name: GitHub Action flow to Docker hub 
+name: GitHub Action flow to Docker hub with multistaging and cache
 
 on:
   push:
-    branches: [master]
+    branches: 
+    - "master"
+    - "dev"
 
 jobs:
   build-push-images:
@@ -39,5 +41,7 @@ jobs:
           platforms: linux/amd64, linux/arm64, linux/ppc64le
           push: true
           tags: |
-            irusio/zad2:ghfront1
+            irusio/zad2-4:ghfront1
+          cache-from: type=gha
+          cache-to: type=gha, mode=max
           
